@@ -43,8 +43,8 @@ GimbalController::GimbalController(
     });
   // ros pub and sub
   using namespace std::placeholders;
-  auto ros_gimbal_cmd_topic = "robot_base/gimbal_cmd";
-  auto ros_gimbal_state_topic = "robot_base/gimbal_state";
+  auto ros_gimbal_cmd_topic = "/gimbal_cmd";
+  auto ros_gimbal_state_topic = "/gimbal_state";
   ros_gimbal_state_pub_ = node_->create_publisher<rmoss_interfaces::msg::Gimbal>(
     ros_gimbal_state_topic, 10);
   ros_gimbal_cmd_sub_ = node_->create_subscription<rmoss_interfaces::msg::GimbalCmd>(

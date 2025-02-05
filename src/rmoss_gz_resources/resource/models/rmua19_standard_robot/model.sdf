@@ -298,8 +298,22 @@
 				</limit>
 			</axis>
 		</joint>
+		<!-- <joint name="aft_mapped_joint" type="fixed">
+			<pose relative_to="base_link">0 0 0.1376 0 0 0</pose>
+			<parent>base_link</parent>
+			<child>gimbal_yaw</child>
+			<axis>
+				<xyz>0 0 1</xyz>
+				<limit>
+					<effort>100</effort>
+					<velocity>50</velocity>
+					<lower>-1.79769e+308</lower>
+					<upper>1.79769e+308</upper>
+				</limit>
+			</axis>
+		</joint> -->
 		<link name="gimbal_yaw">
-			<pose relative_to="gimbal_yaw_joint">0 0 0 0 0 0</pose>
+			<pose relative_to="aft_mapped_joint">0 0 0 0 0 0</pose>
 			<inertial>
 				<pose>0 0 0.06 0 0 0</pose>
 				<mass>1.0</mass>

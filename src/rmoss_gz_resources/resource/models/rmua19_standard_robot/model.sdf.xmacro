@@ -29,7 +29,7 @@
         </plugin>
         <!--plugin for chassis control-->
         <plugin filename="MecanumDrive2" name="ignition::gazebo::systems::MecanumDrive2">
-			<base_link>base_link</base_link>
+			<chassis_link>chassis</chassis_link>
             <front_left_joint>front_left_wheel_joint</front_left_joint>
             <front_right_joint>front_right_wheel_joint</front_right_joint>
             <rear_left_joint>rear_left_wheel_joint</rear_left_joint>

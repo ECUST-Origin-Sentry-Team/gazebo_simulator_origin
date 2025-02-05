@@ -35,21 +35,27 @@ Rmua19RobotBaseNode::Rmua19RobotBaseNode(const rclcpp::NodeOptions & options)
   node_->get_parameter("world_name", world_name);
   node_->get_parameter("use_odometry", use_odometry);
   is_red_ = (robot_name.find("blue") == std::string::npos);
+
+
   // ign topic string
   // std::string gz_chassis_cmd_topic = "/" + robot_name + "/cmd_vel";
-  // std::string gz_pitch_cmd_topic = "/model/" + robot_name + "/joint/gimbal_pitch_joint/cmd_vel";
-  // std::string gz_yaw_cmd_topic = "/model/" + robot_name + "/joint/gimbal_yaw_joint/cmd_vel";
-  // std::string gz_joint_state_topic = "/world/" + world_name + "/model/" + robot_name +
-  //   "/joint_state";
-  // std::string gz_gimbal_imu_topic = "/world/" + world_name + "/model/" + robot_name +
-  //   "/link/gimbal_pitch/sensor/gimbal_imu/imu";
+  std::string gz_pitch_cmd_topic = "/model/" + robot_name + "/joint/gimbal_pitch_joint/cmd_vel";
+  std::string gz_yaw_cmd_topic = "/model/" + robot_name + "/joint/gimbal_yaw_joint/cmd_vel";
+  std::string gz_joint_state_topic = "/world/" + world_name + "/model/" + robot_name +
+    "/joint_state";
+  std::string gz_gimbal_imu_topic = "/world/" + world_name + "/model/" + robot_name +
+    "/link/gimbal_pitch/sensor/gimbal_imu/imu";
   // std::string gz_light_bar_cmd_topic = "/" + robot_name + "/color/set_state";
+
+
   std::string gz_chassis_cmd_topic = "/cmd_vel";
-  std::string gz_pitch_cmd_topic = "/model/joint/gimbal_pitch_joint/cmd_vel";
-  std::string gz_yaw_cmd_topic = "/model/joint/gimbal_yaw_joint/cmd_vel";
-  std::string gz_joint_state_topic = "/world/model/joint_state";
-  std::string gz_gimbal_imu_topic = "/world/model/link/gimbal_pitch/sensor/gimbal_imu/imu";
+  // std::string gz_pitch_cmd_topic = "/model/joint/gimbal_pitch_joint/cmd_vel";
+  // std::string gz_yaw_cmd_topic = "/model/joint/gimbal_yaw_joint/cmd_vel";
+  // std::string gz_joint_state_topic = "/world/model/joint_state";
+  // std::string gz_gimbal_imu_topic = "/world/model/link/gimbal_pitch/sensor/gimbal_imu/imu";
   std::string gz_light_bar_cmd_topic = "/color/set_state";
+
+
   // create hardware moudule
   // Actuator
   chassis_actuator_ = std::make_shared<rmoss_gz_base::IgnChassisActuator>(

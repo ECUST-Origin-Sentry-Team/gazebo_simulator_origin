@@ -102,7 +102,7 @@ void MecanumDrive2::Configure(const Entity &_entity,
     }
     // Get params from SDF
     // Get chassis link
-    this->dataPtr->chassisLinkName = _sdf->Get<std::string>("base_link");
+    this->dataPtr->chassisLinkName = _sdf->Get<std::string>("chassis_link");
     this->dataPtr->chassisLink = this->dataPtr->model.LinkByName(_ecm, this->dataPtr->chassisLinkName);
     if (this->dataPtr->chassisLink == kNullEntity)
     {

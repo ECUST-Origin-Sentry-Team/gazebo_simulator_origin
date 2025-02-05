@@ -4,7 +4,7 @@
     chassis_controller:
       follow_yaw: true
       follow_yaw_pid:
-        p: 5.0
+        p: 0.1
         i: 0.0
         d: 1.0
         imin: -1.0
@@ -21,9 +21,9 @@
         cmdmin: -1000.0
         cmdmax: 1000.0
       yaw_pid:
-        p: 10.0
+        p: 0.0
         i: 0.0
-        d: 1.0
+        d: 3.0
         imin: -0.2
         imax: 0.2
         cmdmin: -1000.0

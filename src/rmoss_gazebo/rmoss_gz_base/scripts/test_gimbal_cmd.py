@@ -72,19 +72,41 @@ def main():
         elif key == 's':
             pitch=pitch+da
         elif key == 'a':
-            yaw=yaw+da
-        elif key == 'd':
             yaw=yaw-da
+        elif key == 'd':
+            yaw=yaw+da
         elif key == '[':
             da=da-0.01
         elif key == ']':
             da=da+0.01
+        elif key == 'k':
+            yaw=0.0
         elif key == '\x03':
             break
         da=clip(da,0.01,0.2)
         info=getGimbalContolMsg(pitch,yaw)
         pub.publish(info)
-
+    # da=10.0
+    # while True:
+    #     key=getKey(settings)
+    #     if key == 'w':
+    #         pitch=pitch-da
+    #     elif key == 's':
+    #         pitch=pitch+da
+    #     elif key == 'a':
+    #         yaw=yaw-da
+    #     elif key == 'd':
+    #         yaw=yaw+da
+    #     elif key == '[':
+    #         da=da-10.0
+    #     elif key == ']':
+    #         da=da+10.0
+    #     elif key == '\x03':
+    #         break
+    #     print(pitch,yaw,da)
+    #     da=clip(da,10.0,100.0)
+    #     info=getGimbalContolMsg(pitch,yaw)
+    #     pub.publish(info)
 if __name__ == '__main__':
     main()
 

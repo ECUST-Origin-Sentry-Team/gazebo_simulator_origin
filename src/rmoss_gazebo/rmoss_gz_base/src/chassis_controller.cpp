@@ -40,7 +40,7 @@ ChassisController::ChassisController(
   // ros sub
   using namespace std::placeholders;
   ros_chassis_cmd_sub_ = node_->create_subscription<rmoss_interfaces::msg::ChassisCmd>(
-    "robot_base/chassis_cmd", 10, std::bind(&ChassisController::chassis_cb, this, _1));
+    "chassis_cmd", 10, std::bind(&ChassisController::chassis_cb, this, _1));
   ros_cmd_vel_sub_ = node_->create_subscription<geometry_msgs::msg::Twist>(
     "cmd_vel", 10, std::bind(&ChassisController::cmd_vel_cb, this, _1));
   // timer and set_parameters callback
@@ -53,15 +53,15 @@ void ChassisController::update()
 {
   static const auto DT = std::chrono::milliseconds(10);
   geometry_msgs::msg::Twist result_vel;
-
-  if (follow_mode_flag_) {
+  
+  if (follow_mode_flag_) {// 跟随车体
     // follow mode
     result_vel.linear = target_vel_.linear;
-    result_vel.angular.z = chassis_pid_.Update(-cur_yaw_, DT);
-  } else {
+    result_vel.angular.z = chassis_pid_.Update(cur_yaw_, DT);
+  } else { // 跟随云台
     result_vel.angular.z = target_vel_.angular.z;
-    result_vel.linear.x =  target_vel_.linear.x * std::cos(-cur_yaw_) + target_vel_.linear.y * std::sin(-cur_yaw_);
-    result_vel.linear.y = -target_vel_.linear.x * std::sin(-cur_yaw_) + target_vel_.linear.y * std::cos(-cur_yaw_);
+    result_vel.linear.x =  target_vel_.linear.x * std::cos(cur_yaw_) + target_vel_.linear.y * std::sin(cur_yaw_);
+    result_vel.linear.y = -target_vel_.linear.x * std::sin(cur_yaw_) + target_vel_.linear.y * std::cos(cur_yaw_);
   }
   // publish CMD
   chassis_actuator_->set(result_vel);
