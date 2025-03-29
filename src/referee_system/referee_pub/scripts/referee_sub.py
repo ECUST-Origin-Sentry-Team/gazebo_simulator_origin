@@ -37,6 +37,7 @@ class Subscriber(Node):
 [blue_outpost_hp]    \t\t {message.blue_outpost_hp} 
 [blue_base_hp]    \t\t {message.blue_base_hp} 
 [rfid_status]    \t\t {message.rfid_status} 
+[event_type]     \t\t {message.event_type} 
 """)
  
  

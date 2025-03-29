@@ -34,6 +34,7 @@ std::map<std::string, int> referee_dict{
     {"blue_outpost_hp", 1500},
     {"blue_base_hp", 5000},
     {"rfid_status", 1},
+    {"mid_occupy",0},
 };
 
 referee_publisher::referee_publisher()
@@ -44,6 +45,7 @@ referee_publisher::referee_publisher()
         this->declare_parameter<int>(iter->first, iter->second);
         this->get_parameter(iter->first, referee_dict[iter->first]);
     }
+    
     
     publisher_ = this->create_publisher<referee_msg::msg::Referee>("Referee", 10);
     timer_ = this->create_wall_timer(
@@ -106,6 +108,8 @@ void referee_publisher::timer_callback()
     message.blue_outpost_hp = referee_dict["blue_outpost_hp"];
     message.blue_base_hp = referee_dict["blue_base_hp"];
     message.rfid_status = referee_dict["rfid_status"];
+    message.event_type = referee_dict["mid_occupy"]<<21;
+
 
     // 发布消息
     publisher_->publish(message);
