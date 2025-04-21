@@ -14,7 +14,7 @@ std::map<std::string, int> referee_dict{
     {"max_hp", 400},
     {"game_type", 1},
     {"game_progress", 4},
-    {"stage_remain_time", 419},
+    {"stage_remain_time", 420},
     {"coin_remaining_num", 400},
     {"bullet_remaining_num_17mm", 300},
     {"red_1_hp", 500},

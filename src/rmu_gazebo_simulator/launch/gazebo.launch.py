@@ -75,7 +75,7 @@ def generate_launch_description():
         output="screen",
         parameters=[
             {
-                "pcd_topic": "base_link/lidar/pointcloud",
+                "pcd_topic": "livox/lidar/pointcloud",
                 "n_scan": 32,
                 "horizon_scan": 1875,
                 "ang_bottom": 7.0,

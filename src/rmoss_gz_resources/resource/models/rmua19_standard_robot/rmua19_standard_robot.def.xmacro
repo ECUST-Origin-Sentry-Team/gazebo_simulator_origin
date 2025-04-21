@@ -5,19 +5,20 @@
     <xmacro_include uri="model://rm21_light_indicator_module/rm21_light_indicator_module.def.xmacro" />
     <xmacro_include uri="model://rm21_speed_monitor_module/rm21_speed_monitor_module.def.xmacro" />
     <xmacro_include uri="model://rmua19_standard_robot/chassis_wheel.def.xmacro" />
-    <!--macro defination: rmua19_standard_robot-->
+    <!--macro
+    defination: rmua19_standard_robot-->
     <xmacro_define_block name="rmua19_standard_robot" params="sticker_type">
-    
-    
-    <!-- aft_mapped->chassis -->
-    <!-- gimbal_yaw->aft_mapped -->
-    
-    
+
+
+        <!-- aft_mapped->chassis -->
+        <!-- gimbal_yaw->aft_mapped -->
+
+
         <link name="base_link" />
 
         <joint name="aft_to_base_link" type="fixed">
-        <!-- <pose relative_to='aft_mapped'>0 0 0.076 0 0 0</pose> -->
-            <pose>0 0 0.076 0 0 0</pose>
+            <!-- <pose relative_to='aft_mapped'>0 0 0.076 0 0 0</pose> -->
+            <pose>0 0 0 0 0 1.09</pose>
             <parent>aft_mapped</parent>
             <child>base_link</child>
             <!-- <axis>
@@ -34,8 +35,8 @@
         <link name="chassis" >
             <pose relative_to="gimbal_yaw_joint">0 0 0 0 0 0</pose>
             <inertial>
-                <pose>0 0 0.055 0 0 0</pose>
-                <xmacro_block name="inertia_box"  m="15.0" x="0.36" y="0.24" z="0.13"/>
+                <pose>0 0 -0.6 0 0 0</pose>
+                <xmacro_block name="inertia_box" m="15.0" x="0.36" y="0.24" z="0.13" />
             </inertial>
             <visual name="base_link_visual">
                 <xmacro_block name="geometry_mesh" uri="model://rmua19_standard_robot/meshes/chassis_base.dae"/>
@@ -61,35 +62,26 @@
                 <update_rate>200</update_rate>
             </sensor>
         </link>
-        <!--front_left
-        wheel link and joint-->
-        <xmacro_block name="chassis_wheel_l" prefix="front_left" parent="chassis"
-            pose="0.207 0.194 0 0 0 0" />
-        <!--front_right
-        wheel link and joint-->
-        <xmacro_block name="chassis_wheel_r" prefix="front_right" parent="chassis"
-            pose="0.207 -0.194 0 0 0 0" />
-        <!--rear_left
-        wheel link and joint-->
-        <xmacro_block name="chassis_wheel_r" prefix="rear_left" parent="chassis"
-            pose="-0.207 0.194 0 0 0 0" />
-        <!--rear_right
-        wheel link and joint-->
-        <xmacro_block name="chassis_wheel_l" prefix="rear_right" parent="chassis"
-            pose="-0.207 -0.194 0 0 0 0" />
-        <!--gimbal
-        yaw module-->
+        <!--front_left wheel link and joint-->
+        <xmacro_block name="chassis_wheel_l"  prefix="front_left" parent="chassis" pose="0.207 0.194 0 0 0 0"/>
+        <!--front_right wheel link and joint-->
+        <xmacro_block name="chassis_wheel_r"  prefix="front_right" parent="chassis" pose="0.207 -0.194 0 0 0 0"/>
+        <!--rear_left wheel link and joint-->
+        <xmacro_block name="chassis_wheel_r"  prefix="rear_left" parent="chassis" pose="-0.207 0.194 0 0 0 0"/>
+        <!--rear_right wheel link and joint-->
+        <xmacro_block name="chassis_wheel_l"  prefix="rear_right" parent="chassis" pose="-0.207 -0.194 0 0 0 0"/>
+        <!--gimbal yaw module-->
         <joint name="gimbal_yaw_joint" type="revolute">
-            <pose relative_to="aft_mapped">0 0 0 0 0 0</pose>
-            <parent>aft_mapped</parent>
+            <pose relative_to="base_link">0 0 -0.6 0 0 0</pose>
+            <parent>base_link</parent>
             <child>chassis</child>
             <axis>
                 <xyz>0 0 1</xyz>
                 <limit>
                     <effort>100</effort>
-					<velocity>50</velocity>
-					<lower>-1.79769e+308</lower>
-					<upper>1.79769e+308</upper>  
+                    <velocity>50</velocity>
+                    <lower>-1.79769e+308</lower>
+                    <upper>1.79769e+308</upper>
                 </limit>
             </axis>
         </joint>
@@ -100,7 +92,7 @@
                 <xmacro_block name="inertia_cylinder"  m="1.0" r="0.05" l="0.17"/>
             </inertial>
             <visual name="visual">
-                <pose>0 0 0.0885 0 0 0</pose>
+                <pose>0 0 -0.4 0 0 0</pose>
                 <xmacro_block name="geometry_mesh" uri="model://rmua19_standard_robot/meshes/gimbal_yaw.dae"/>
             </visual>
             <collision name="collision">
@@ -110,8 +102,8 @@
         </link>
         <!--gimbal pitch module-->
         <joint name="gimbal_pitch_joint" type="revolute">
-            <pose relative_to='aft_mapped'>0 0.004 0.266 0 0 0</pose>
-            <parent>aft_mapped</parent>
+            <pose relative_to='base_link'>0 0.004 -0.266 0 0 0</pose>
+            <parent>base_link</parent>
             <child>gimbal_pitch</child>
             <axis>
                 <xyz>0 1 0</xyz>
@@ -119,7 +111,7 @@
                     <effort>100</effort>
                     <lower>${-3.14*0.25}</lower>
                     <upper>${3.14*0.18}</upper>
-					<velocity>50</velocity>
+                    <velocity>50</velocity>
                 </limit>
             </axis>
         </joint>
@@ -147,16 +139,16 @@
         </link>
         <!--for referee system -->
         <!--front armors -->
-        <xmacro_block name="small_armor_with_support" suffix="_0" parent="chassis"  
+        <xmacro_block name="small_armor_with_support" suffix="_0" parent="chassis"
                 sticker_type="${sticker_type}" pose="0.197 0 0.061 0 0 0"/>
         <!--left armors -->
-        <xmacro_block name="small_armor_with_support" suffix="_1" parent="chassis" 
+        <xmacro_block name="small_armor_with_support" suffix="_1" parent="chassis"
                 sticker_type="${sticker_type}" pose="0 0.116 0.061 0 0 1.5708"/>
         <!--rear armors -->
-        <xmacro_block name="small_armor_with_support" suffix="_2" parent="chassis" 
+        <xmacro_block name="small_armor_with_support" suffix="_2" parent="chassis"
                 sticker_type="${sticker_type}" pose="-0.197 0 0.061 0 0 3.14"/>
         <!--right armors -->
-        <xmacro_block name="small_armor_with_support" suffix="_3" parent="chassis" 
+        <xmacro_block name="small_armor_with_support" suffix="_3" parent="chassis"
                 sticker_type="${sticker_type}" pose="0 -0.116 0.061 0 0 -1.5708"/>
         <!--light_indicator-->
         <xmacro_block name="light_indicator" suffix="" parent="chassis" pose="-0.207 0 0.1 0 0 0"/>

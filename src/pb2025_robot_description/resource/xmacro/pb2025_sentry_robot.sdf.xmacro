@@ -13,12 +13,12 @@
     <model name="pb2025_sentry_robot">
     <!-- <model name="a"> -->
 
-        <pose>0 0 0.15 0 0 0</pose>
+        <pose>0 0 -0.6 0 0 0</pose>
         <xmacro_block name="rmua19_standard_robot" sticker_type="${global_armor_sticker_type}"/>
         <!--rplidar a2-->
         <!-- <xmacro_block name="rplidar_a2" prefix="front_" parent="base_link" pose="0.155 0 0.1 0 0 0" update_rate="10" samples="400" visualize="true"/> -->
         <!--livox-->
-        <xmacro_block name="livox_frame" prefix="" parent="base_link" pose="0.0 0.2 0.4 0.0 0.0 0.0" update_rate="100" samples="1875"/>
+        <xmacro_block name="livox_frame" prefix="" parent="aft_mapped" pose="0.0 0.0 0.0 0.0 0.0 0.0" update_rate="100" samples="1875"/>
         <!--industrial camera-->
         <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0" update_rate="30" horizontal_fov="1" width="1920" height="1080"/>
 

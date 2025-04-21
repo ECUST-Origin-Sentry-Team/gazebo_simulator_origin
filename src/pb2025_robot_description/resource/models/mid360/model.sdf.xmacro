@@ -8,13 +8,13 @@
       <child>${prefix}livox_frame</child>
     </joint>
     <link name="${prefix}livox_frame">
-      <pose relative_to="${prefix}livox_joint">0.0 0.0 0.0 0 0 0</pose>
+      <pose relative_to="${prefix}livox_joint">0.0 0.0 0.0 0 0 -1.095</pose>
       <inertial>
         <pose>0 0 0.02 0 0 0</pose>
         <xmacro_block name="inertia_cylinder" m="0.005" r="0.04" l="0.04" />
       </inertial>
       <visual name="visual">
-        <pose>0.0 0.0 0.0 0 0 ${pi}</pose>
+        <pose>0.0 0.0 0.0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://mid360/meshes/mid360.dae</uri>
@@ -66,7 +66,7 @@
   <!--Livox mid360-->
   <model name='simple_livox'>
     <pose>0 0 0.2 0 0 0</pose>
-    <link name="base_link">
+    <link name="aft_mapped">
       <inertial>
         <xmacro_block name="inertia_box" m="0.4" x="0.4" y="0.4" z="0.4" />
       </inertial>
@@ -78,6 +78,6 @@
       </collision>
     </link>
     <!--update_rate(10-15),samples(400)-->
-    <xmacro_block name="livox" prefix="simple_" parent="base_link" pose="0 0 0.2 0 0 0" update_rate="10" samples="1500"/>
+    <xmacro_block name="livox" prefix="simple_" parent="aft_mapped" pose="0 0 0.2 0 0 0" update_rate="10" samples="1500"/>
   </model>
 </sdf>

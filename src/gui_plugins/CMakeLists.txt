@@ -21,10 +21,11 @@ find_package(ament_cmake REQUIRED)
 # Find the Gazebo gui library
 find_package(ignition-gui6 REQUIRED)
 find_package(ignition-common4 REQUIRED)
-
+find_package(gz-transport12 REQUIRED)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNITION-GUI_CXX_FLAGS}")
 
 QT5_ADD_RESOURCES(resources_RCC plugins/referee_ui/referee.qrc)
+QT5_ADD_RESOURCES(resources_RCC plugins/race_control/racecontrol.qrc)
 
 include_directories(SYSTEM
   ${IGNITION-COMMON_INCLUDE_DIRS}
@@ -45,8 +46,10 @@ add_library(RefereeUI SHARED
   plugins/referee_ui/RefereeUI.cc
   ${resources_RCC}
 )
-
-
+add_library(RaceControl SHARED
+  plugins/race_control/RaceControl.cc
+  ${resources_RCC}
+)
 
 
 target_link_libraries(RefereeUI
@@ -55,9 +58,23 @@ ${Qt5Core_LIBRARIES}
 ${Qt5Qml_LIBRARIES}
 ${Qt5Quick_LIBRARIES}
 ${Qt5QuickControls2_LIBRARIES}
+gz-transport12::gz-transport12
 )
 
 install(TARGETS RefereeUI
+    DESTINATION plugins
+    )
+
+target_link_libraries(RaceControl
+${IGNITION-GUI_LIBRARIES}
+${Qt5Core_LIBRARIES}
+${Qt5Qml_LIBRARIES}
+${Qt5Quick_LIBRARIES}
+${Qt5QuickControls2_LIBRARIES}
+gz-transport12::gz-transport12
+)
+
+install(TARGETS RaceControl
     DESTINATION plugins
     )
 

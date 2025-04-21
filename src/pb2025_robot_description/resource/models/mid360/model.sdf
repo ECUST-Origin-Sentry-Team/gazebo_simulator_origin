@@ -8,7 +8,7 @@
 	<!--Livox mid360-->
 	<model name="simple_livox">
 		<pose>0 0 0.2 0 0 0</pose>
-		<link name="base_link">
+		<link name="aft_mapped">
 			<inertial>
 				<mass>0.4</mass>
 				<inertia>
@@ -103,4 +103,3 @@
 		</link>
 	</model>
 </sdf>
-

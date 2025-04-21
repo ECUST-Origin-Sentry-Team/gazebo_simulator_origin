@@ -49,7 +49,7 @@ private:
   Sensor<nav_msgs::msg::Odometry>::SharedPtr odometry_sensor_;
   nav_msgs::msg::Odometry sensor_msg_;
   std::string frame_id_{"odom"};
-  std::string child_frame_id_{"base_link"};
+  std::string child_frame_id_{"aft_mapped"};
   bool use_footprint_{false};
   bool publish_tf_{true};
 };

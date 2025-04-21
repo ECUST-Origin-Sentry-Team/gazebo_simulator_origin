@@ -42,7 +42,7 @@ ChassisController::ChassisController(
   ros_chassis_cmd_sub_ = node_->create_subscription<rmoss_interfaces::msg::ChassisCmd>(
     "chassis_cmd", 10, std::bind(&ChassisController::chassis_cb, this, _1));
   ros_cmd_vel_sub_ = node_->create_subscription<geometry_msgs::msg::Twist>(
-    "cmd_vel", 10, std::bind(&ChassisController::cmd_vel_cb, this, _1));
+    "cmd_vel_chassis", 10, std::bind(&ChassisController::cmd_vel_cb, this, _1));
   // timer and set_parameters callback
   auto period = std::chrono::milliseconds(10);
   controller_timer_ = node_->create_wall_timer(

@@ -54,8 +54,8 @@ def generate_launch_description():
             parameters=[
                 {
                     "game_type": world_type,
-                    "game_progress": 4,
-                    "stage_remain_time": 419,
+                    "game_progress": 3,
+                    # "stage_remain_time": 419,
                     "red_1_hp": 500,
                     "red_2_hp": 250,
                     "red_3_hp": 400,
