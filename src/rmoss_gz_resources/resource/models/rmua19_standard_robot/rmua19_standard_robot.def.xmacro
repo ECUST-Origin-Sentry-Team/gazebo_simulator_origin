@@ -61,15 +61,24 @@
                 <update_rate>200</update_rate>
             </sensor>
         </link>
-        <!--front_left wheel link and joint-->
-        <xmacro_block name="chassis_wheel_l"  prefix="front_left" parent="chassis" pose="0.207 0.194 0 0 0 0"/>
-        <!--front_right wheel link and joint-->
-        <xmacro_block name="chassis_wheel_r"  prefix="front_right" parent="chassis" pose="0.207 -0.194 0 0 0 0"/>
-        <!--rear_left wheel link and joint-->
-        <xmacro_block name="chassis_wheel_r"  prefix="rear_left" parent="chassis" pose="-0.207 0.194 0 0 0 0"/>
-        <!--rear_right wheel link and joint-->
-        <xmacro_block name="chassis_wheel_l"  prefix="rear_right" parent="chassis" pose="-0.207 -0.194 0 0 0 0"/>
-        <!--gimbal yaw module-->
+        <!--front_left
+        wheel link and joint-->
+        <xmacro_block name="chassis_wheel_l" prefix="front_left" parent="chassis"
+            pose="0.207 0.194 0 0 0 0" />
+        <!--front_right
+        wheel link and joint-->
+        <xmacro_block name="chassis_wheel_r" prefix="front_right" parent="chassis"
+            pose="0.207 -0.194 0 0 0 0" />
+        <!--rear_left
+        wheel link and joint-->
+        <xmacro_block name="chassis_wheel_r" prefix="rear_left" parent="chassis"
+            pose="-0.207 0.194 0 0 0 0" />
+        <!--rear_right
+        wheel link and joint-->
+        <xmacro_block name="chassis_wheel_l" prefix="rear_right" parent="chassis"
+            pose="-0.207 -0.194 0 0 0 0" />
+        <!--gimbal
+        yaw module-->
         <joint name="gimbal_yaw_joint" type="revolute">
             <pose relative_to="aft_mapped">0 0 0 0 0 0</pose>
             <parent>aft_mapped</parent>
