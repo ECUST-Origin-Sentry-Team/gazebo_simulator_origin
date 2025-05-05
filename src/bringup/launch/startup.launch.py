@@ -80,7 +80,7 @@ def generate_launch_description():
             ComposableNode(
                 package='nav2_map_server',
                 plugin='nav2_map_server::MapServer',
-                parameters=[{'yaml_filename': os.path.join(bringup_dir, 'map', 'rmuc_2025.yaml')}],
+                parameters=[{'yaml_filename': os.path.join(bringup_dir, 'map', 'rmuc_2025_normalized.yaml')}],
                 name='map_server',),
             ComposableNode(
                 package='nav2_lifecycle_manager',
@@ -146,6 +146,31 @@ def generate_launch_description():
             get_package_share_directory('icp_registration')+'/launch/icp.launch.py'
         )
     )
+    map_to_odom = LoadComposableNodes(
+        target_container='container',
+        composable_node_descriptions=[
+            ComposableNode(
+                package='tf2_ros',
+                plugin='tf2_ros::StaticTransformBroadcasterNode',
+                name='map_to_odom',
+                parameters=[{
+                                        # 'translation.x':1.25,
+                    # 'translation.y':6.35,
+                    'translation.x':0.0,
+                    'translation.y':0.0,
+                    'translation.z':0.0,
+                    'rotation.x':0.0,
+                    'rotation.y':0.0,
+                    'rotation.z': -0.521,
+                    'rotation.w': 0.854,
+                    # 'rotation.z': 0.0,
+                    # 'rotation.w': 1.0,
+                    'frame_id':'map',
+                    'child_frame_id':'odom'
+                }]
+            ),
+        ]
+    )
 
     return LaunchDescription(
         [
@@ -156,18 +181,18 @@ def generate_launch_description():
             #gicp,      
              #lidar_transform,
             #  livox_ros_driver2,
-            #point_lio_rviz,
              start_nav2_rviz,
+             map_to_odom,
              seg,
              load_map_server,
              p_to_l,
              fake_baselink,
+            #  TimerAction(
+            #     period=4.0,
+            #     actions=[icp],
+            # ),
              TimerAction(
                 period=4.0,
-                actions=[icp],
-            ),
-             TimerAction(
-                period=8.0,
                 actions=[nav2],
             ),
             #  nav2,

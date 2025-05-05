@@ -282,6 +282,6 @@ def generate_launch_description():
     ld.add_action(container)
 
     # Add the actions to launch all of the navigation nodes
-    ld.add_action(load_composable_nodes)
+    ld.add_action(load_nodes)
 
     return ld
