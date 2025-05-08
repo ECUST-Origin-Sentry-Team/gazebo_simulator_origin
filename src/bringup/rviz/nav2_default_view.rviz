@@ -13,12 +13,15 @@ Panels:
         - /Global Planner1/Path1
         - /Controller1
         - /Controller1/Local Plan1
+        - /MarkerArray1
+        - /Marker1
         - /PointCloud21
         - /PointCloud21/Topic1
         - /PointCloud22
         - /PointCloud22/Topic1
         - /Image1
         - /Image1/Topic1
+        - /Pose1
       Splitter Ratio: 0.5833333134651184
     Tree Height: 1225
   - Class: rviz_common/Selection
@@ -64,53 +67,53 @@ Visualization Manager:
       Frames:
         All Enabled: false
         aft_mapped:
-          Value: false
+          Value: true
         armor_0:
-          Value: false
+          Value: true
         armor_1:
-          Value: false
+          Value: true
         armor_2:
-          Value: false
+          Value: true
         armor_3:
-          Value: false
+          Value: true
         armor_support_frame_0:
-          Value: false
+          Value: true
         armor_support_frame_1:
-          Value: false
+          Value: true
         armor_support_frame_2:
-          Value: false
+          Value: true
         armor_support_frame_3:
-          Value: false
+          Value: true
         base_link:
-          Value: false
+          Value: true
         base_link_fake:
           Value: true
         chassis:
-          Value: false
+          Value: true
         front_industrial_camera:
-          Value: false
+          Value: true
         front_industrial_camera_optical_frame:
-          Value: false
+          Value: true
         front_left_wheel:
-          Value: false
+          Value: true
         front_right_wheel:
-          Value: false
+          Value: true
         gimbal_pitch:
-          Value: false
+          Value: true
         light_indicator:
-          Value: false
+          Value: true
         livox_frame:
-          Value: false
+          Value: true
         map:
           Value: false
         odom:
-          Value: false
+          Value: true
         rear_left_wheel:
-          Value: false
+          Value: true
         rear_right_wheel:
-          Value: false
+          Value: true
         speed_monitor:
-          Value: false
+          Value: true
       Marker Scale: 2
       Name: TF
       Show Arrows: true
@@ -217,7 +220,7 @@ Visualization Manager:
           Class: rviz_default_plugins/Map
           Color Scheme: costmap
           Draw Behind: false
-          Enabled: true
+          Enabled: false
           Name: Global Costmap
           Topic:
             Depth: 1
@@ -233,7 +236,7 @@ Visualization Manager:
             Reliability Policy: Reliable
             Value: /global_costmap/costmap_updates
           Use Timestamp: false
-          Value: true
+          Value: false
         - Alpha: 0.30000001192092896
           Class: rviz_default_plugins/Map
           Color Scheme: costmap
@@ -256,7 +259,7 @@ Visualization Manager:
           Use Timestamp: false
           Value: false
         - Alpha: 1
-          Buffer Length: 1
+          Buffer Length: 3
           Class: rviz_default_plugins/Path
           Color: 255; 0; 0
           Enabled: true
@@ -454,7 +457,7 @@ Visualization Manager:
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: /waypoints
+        Value: /local_costmap_cells
       Value: true
     - Alpha: 1
       Arrow Length: 0.30000001192092896
@@ -527,8 +530,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 17.94089126586914
-        Min Value: -0.6777825355529785
+        Max Value: 17.867279052734375
+        Min Value: -0.720899760723114
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -579,6 +582,26 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /back/armor_detector/binary_img
       Value: false
+    - Alpha: 1
+      Axes Length: 1
+      Axes Radius: 0.10000000149011612
+      Class: rviz_default_plugins/Pose
+      Color: 26; 95; 180
+      Enabled: true
+      Head Length: 0.30000001192092896
+      Head Radius: 0.10000000149011612
+      Name: Pose
+      Shaft Length: 1
+      Shaft Radius: 0.05000000074505806
+      Shape: Arrow
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /gradient_escape_direction
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -617,25 +640,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 11.771977424621582
+      Distance: 3.756711721420288
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 6.803990364074707
-        Y: -5.307230472564697
-        Z: 12.616883277893066
+        X: 0.9641639590263367
+        Y: -1.716815710067749
+        Z: 11.70311164855957
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4697964191436768
+      Pitch: 1.5597963333129883
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz_default_plugins)
-      Yaw: 3.11637806892395
+      Yaw: 3.161381483078003
     Saved: ~
 Window Geometry:
   Displays:

@@ -191,10 +191,10 @@ def generate_launch_description():
             #     period=4.0,
             #     actions=[icp],
             # ),
-             TimerAction(
-                period=4.0,
-                actions=[nav2],
-            ),
+            #  TimerAction(
+            #     period=4.0,
+            #     actions=[nav2],
+            # ),
             #  nav2,
             # icp,
             

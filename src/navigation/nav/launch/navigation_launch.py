@@ -184,7 +184,7 @@ def generate_launch_description():
             Node(
                 package='nav2_controller',
                 executable='controller_server',
-                output='screen',
+                output='log',
                 respawn=use_respawn,
                 respawn_delay=2.0,
                 parameters=[configured_params],
@@ -204,7 +204,7 @@ def generate_launch_description():
                 package='nav2_planner',
                 executable='planner_server',
                 name='planner_server',
-                output='screen',
+                output='log',
                 respawn=use_respawn,
                 respawn_delay=2.0,
                 parameters=[configured_params],
