@@ -43,7 +43,7 @@ def generate_launch_description():
         package="point_lio_with_grid_map",
         executable="pointlio_mapping",
         namespace=namespace,
-        parameters=[point_lio_cfg_dir],
+        parameters=[point_lio_cfg_dir,{"use_sim_time": False}],
         remappings=remappings,
         output="screen",
     )

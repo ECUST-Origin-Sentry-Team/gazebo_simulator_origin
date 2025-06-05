@@ -68,6 +68,19 @@ def generate_launch_description():
             namespace='',
             output="screen",
         )
+    
+    dec_simple = Node(
+        package="dec_tree",
+        executable="root_simple",
+        namespace='',
+        output="screen",
+    )
+    dec_radical = Node(
+        package="dec_tree",
+        executable="root_radical",
+        namespace='',
+        output="screen",
+    )
     seg = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
             get_package_share_directory('linefit_ground_segmentation_ros')+"/launch/segmentation.launch.py"
@@ -154,15 +167,18 @@ def generate_launch_description():
                 plugin='tf2_ros::StaticTransformBroadcasterNode',
                 name='map_to_odom',
                 parameters=[{
-                                        # 'translation.x':1.25,
-                    # 'translation.y':6.35,
                     'translation.x':0.0,
                     'translation.y':0.0,
+                    # # 'translation.x':0.625,
+                    # # 'translation.y':-1.41,
+                    #                     'translation.x':0.88,
+                    # 'translation.y':-0.816,
+
                     'translation.z':0.0,
                     'rotation.x':0.0,
                     'rotation.y':0.0,
                     'rotation.z': -0.521,
-                    'rotation.w': 0.854,
+                'rotation.w': 0.854,
                     # 'rotation.z': 0.0,
                     # 'rotation.w': 1.0,
                     'frame_id':'map',
@@ -171,7 +187,6 @@ def generate_launch_description():
             ),
         ]
     )
-
     return LaunchDescription(
         [
             #  rm_serial,
@@ -191,9 +206,17 @@ def generate_launch_description():
             #     period=4.0,
             #     actions=[icp],
             # ),
-            #  TimerAction(
-            #     period=4.0,
-            #     actions=[nav2],
+             TimerAction(
+                period=4.0,
+                actions=[nav2],
+            ),
+            # TimerAction(
+            #     period=8.0,
+            #     actions=[dec],
+            # ),
+            # TimerAction(
+            #     period=8.0,
+            #     actions=[dec_radical],
             # ),
             #  nav2,
             # icp,

@@ -1,5 +1,6 @@
 uint16 remain_hp
 uint16 max_hp
+uint8 game_type
 uint8 game_progress
 uint16 stage_remain_time
 uint16 coin_remaining_num
@@ -8,6 +9,7 @@ uint16 red_1_hp
 uint16 red_2_hp
 uint16 red_3_hp
 uint16 red_4_hp
+uint16 red_5_hp
 uint16 red_7_hp
 uint16 red_outpost_hp
 uint16 red_base_hp
@@ -15,9 +17,9 @@ uint16 blue_1_hp
 uint16 blue_2_hp
 uint16 blue_3_hp
 uint16 blue_4_hp
+uint16 blue_5_hp
 uint16 blue_7_hp
 uint16 blue_outpost_hp
 uint16 blue_base_hp
 uint32 rfid_status
 uint32 event_type
-uint8 hurt_type

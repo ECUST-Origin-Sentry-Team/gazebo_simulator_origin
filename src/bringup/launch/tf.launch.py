@@ -42,22 +42,22 @@ def generate_launch_description():
                     'child_frame_id':'base_link'
                 }]
             ),
-            ComposableNode(
-                package='tf2_ros',
-                plugin='tf2_ros::StaticTransformBroadcasterNode',
-                name='map_to_odom',
-                parameters=[{
-                    'translation.x':0.0,
-                    'translation.y':0.0,
-                    'translation.z':0.0,
-                    'rotation.x':0.0,
-                    'rotation.y':0.0,
-                    'rotation.z':0.0,
-                    'rotation.w':1.0,
-                    'frame_id':'map',
-                    'child_frame_id':'odom'
-                }]
-            ),
+            # ComposableNode(
+            #     package='tf2_ros',
+            #     plugin='tf2_ros::StaticTransformBroadcasterNode',
+            #     name='map_to_odom',
+            #     parameters=[{
+            #         'translation.x':0.0,
+            #         'translation.y':0.0,
+            #         'translation.z':0.0,
+            #         'rotation.x':0.0,
+            #         'rotation.y':0.0,
+            #         'rotation.z':0.0,
+            #         'rotation.w':1.0,
+            #         'frame_id':'map',
+            #         'child_frame_id':'odom'
+            #     }]
+            # ),
          ]
      )
     
