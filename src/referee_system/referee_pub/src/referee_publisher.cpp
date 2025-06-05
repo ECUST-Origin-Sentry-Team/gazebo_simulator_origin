@@ -33,7 +33,7 @@ std::map<std::string, int> referee_dict{
     {"blue_7_hp", 600},
     {"blue_outpost_hp", 1500},
     {"blue_base_hp", 5000},
-    {"rfid_status", 1},
+    {"home_occupy",0},
     {"mid_occupy",0},
 };
 
@@ -107,7 +107,7 @@ void referee_publisher::timer_callback()
     message.blue_7_hp = referee_dict["blue_7_hp"];
     message.blue_outpost_hp = referee_dict["blue_outpost_hp"];
     message.blue_base_hp = referee_dict["blue_base_hp"];
-    message.rfid_status = referee_dict["rfid_status"];
+    message.rfid_status = referee_dict["home_occupy"]<<19;
     message.event_type = referee_dict["mid_occupy"]<<21;
 
 

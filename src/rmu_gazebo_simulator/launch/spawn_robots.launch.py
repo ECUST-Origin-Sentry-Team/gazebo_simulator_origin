@@ -97,7 +97,7 @@ def generate_launch_description():
             remappings=remappings,
             parameters=[
                 {
-                    "use_sim_time": True,
+                    "use_sim_time": False,
                     "robot_description": robot_urdf_xml,
                 }
             ],

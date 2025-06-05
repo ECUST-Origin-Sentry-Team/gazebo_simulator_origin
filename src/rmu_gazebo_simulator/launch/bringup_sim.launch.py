@@ -54,7 +54,7 @@ def generate_launch_description():
             parameters=[
                 {
                     "game_type": world_type,
-                    "game_progress": 3,
+                    "game_progress": 4,
                     # "stage_remain_time": 419,
                     "red_1_hp": 500,
                     "red_2_hp": 250,
@@ -68,7 +68,7 @@ def generate_launch_description():
                     "blue_4_hp": 400,
                     "blue_5_hp": 400,
                     "blue_7_hp": 600,
-                    "rfid_status": 0,
+                    # "rfid_status": 0,
                 }
             ],
         )
