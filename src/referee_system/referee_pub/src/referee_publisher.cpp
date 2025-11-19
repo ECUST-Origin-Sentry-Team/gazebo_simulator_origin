@@ -35,6 +35,8 @@ std::map<std::string, int> referee_dict{
     {"blue_base_hp", 5000},
     {"home_occupy",0},
     {"mid_occupy",0},
+    {"enemy_hero_pos",0},
+
 };
 
 referee_publisher::referee_publisher()
@@ -109,7 +111,7 @@ void referee_publisher::timer_callback()
     message.blue_base_hp = referee_dict["blue_base_hp"];
     message.rfid_status = referee_dict["home_occupy"]<<19;
     message.event_type = referee_dict["mid_occupy"]<<21;
-
+    message.enemy_hero_pos = referee_dict["enemy_hero_pos"];
 
     // 发布消息
     publisher_->publish(message);

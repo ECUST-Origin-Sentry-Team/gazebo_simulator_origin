@@ -100,7 +100,7 @@ void RefereeUI::OnSlider(int _value)
     }
 }
 
-// 新增函数：用于定时检查共享内存
+
 void RefereeUI::checkSharedMemory()
 {
     if (!shared_memory.isAttached())

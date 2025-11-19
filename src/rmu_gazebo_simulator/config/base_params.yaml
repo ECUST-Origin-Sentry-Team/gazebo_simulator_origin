@@ -23,7 +23,7 @@
       yaw_pid:
         p: 0.0
         i: 0.0
-        d: 3.0
+        d: 0.1
         imin: -0.2
         imax: 0.2
         cmdmin: -1000.0

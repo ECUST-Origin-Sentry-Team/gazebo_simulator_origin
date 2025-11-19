@@ -23,3 +23,4 @@ uint16 blue_outpost_hp
 uint16 blue_base_hp
 uint32 rfid_status
 uint32 event_type
+uint8  enemy_hero_pos
