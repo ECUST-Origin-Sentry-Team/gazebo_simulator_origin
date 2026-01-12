@@ -56,7 +56,7 @@ Rectangle {
                 from: 0.0
                 to: RaceControl.maxValue ? RaceControl.maxValue : 100.0
                 stepSize: 1.0
-                value: RaceControl.defaultValue
+                value: RaceControl.currentTime
 
                 background: Rectangle {
                     implicitHeight: 6
@@ -98,6 +98,17 @@ Rectangle {
             width: parent.width * 0.95
             spacing: 20
             Layout.alignment: Qt.AlignHCenter
+            Button {
+                text: "开始比赛"
+                palette.button: "#4CAF50" // 绿色背景
+                onClicked: RaceControl.startRace()
+            }
+
+            Button {
+                text: "停止比赛"
+                palette.button: "#F44336" // 红色背景
+                onClicked: RaceControl.stopRace()
+            }
             Button {
                 text: "重置时间"
                 Layout.alignment: Qt.AlignHCenter
