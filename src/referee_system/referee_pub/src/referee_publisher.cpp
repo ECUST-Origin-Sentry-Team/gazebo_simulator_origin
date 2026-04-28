@@ -5,38 +5,44 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <cstring>
+
 #include <QSharedMemory>
 #include <gz/gui/qt.h>
+
 using namespace std::chrono_literals;
 
 std::map<std::string, int> referee_dict{
     {"remain_hp", 400},
     {"max_hp", 400},
-    {"game_type", 1},
-    {"game_progress", 4},
-    {"stage_remain_time", 420},
-    {"coin_remaining_num", 400},
     {"bullet_remaining_num_17mm", 300},
-    {"red_1_hp", 500},
-    {"red_2_hp", 250},
-    {"red_3_hp", 400},
-    {"red_4_hp", 400},
-    {"red_5_hp", 400},
-    {"red_7_hp", 600},
-    {"red_outpost_hp", 1500},
-    {"red_base_hp", 5000},
-    {"blue_1_hp", 500},
-    {"blue_2_hp", 250},
-    {"blue_3_hp", 400},
-    {"blue_4_hp", 400},
-    {"blue_5_hp", 400},
-    {"blue_7_hp", 600},
-    {"blue_outpost_hp", 1500},
-    {"blue_base_hp", 5000},
-    {"home_occupy",0},
-    {"mid_occupy",0},
-    {"enemy_hero_pos",0},
+    {"bullet_cooling_speed", 0},
+    {"shooter_heat_limit", 0},
+    {"shooter_heat_now", 0},
 
+    {"remain_energy", 0},
+    {"health_state", 0},
+    {"state_now", 0},
+
+    {"stage_remain_time", 420},
+    {"game_progress", 4},
+
+    {"ally_1_robot_hp", 500},
+    {"ally_2_robot_hp", 250},
+    {"ally_3_robot_hp", 400},
+    {"ally_4_robot_hp", 400},
+    {"ally_outpost_hp", 1500},
+    {"ally_base_hp", 5000},
+
+    {"rfid_status", 0},
+    {"event_type", 0},
+
+    {"pilot_cmd", 0},
+    {"fortress_enemy", 0},
+    {"bumpy_road", 0},
+    {"enemy_outpost_alive", 1},
+    {"enemy_hero_pos", 0},
+    {"enemy_engineer_pos", 0}
 };
 
 referee_publisher::referee_publisher()
@@ -47,11 +53,13 @@ referee_publisher::referee_publisher()
         this->declare_parameter<int>(iter->first, iter->second);
         this->get_parameter(iter->first, referee_dict[iter->first]);
     }
-    
-    
+
     publisher_ = this->create_publisher<referee_msg::msg::Referee>("Referee", 10);
+
     timer_ = this->create_wall_timer(
-        100ms, std::bind(&referee_publisher::timer_callback, this));
+        100ms,
+        std::bind(&referee_publisher::timer_callback, this)
+    );
 }
 
 referee_publisher::~referee_publisher()
@@ -64,18 +72,23 @@ referee_publisher::~referee_publisher()
 
 void referee_publisher::memory(std::string msg_name)
 {
-    shared_memory.setKey(QString::fromStdString(std::string(msg_name)));
+    shared_memory.setKey(QString::fromStdString(msg_name));
+
     if (!shared_memory.attach())
     {
         return;
     }
+
     if (!shared_memory.constData())
     {
         return;
     }
+
     shared_memory.lock();
     memcpy(&referee_dict[msg_name], shared_memory.constData(), sizeof(int));
     shared_memory.unlock();
+
+    shared_memory.detach();
 }
 
 void referee_publisher::timer_callback()
@@ -86,40 +99,47 @@ void referee_publisher::timer_callback()
     }
 
     auto message = referee_msg::msg::Referee();
-    message.remain_hp = referee_dict["remain_hp"];
-    message.max_hp = referee_dict["max_hp"];
-    message.game_type = referee_dict["game_type"];
-    message.game_progress = referee_dict["game_progress"];
-    message.stage_remain_time = referee_dict["stage_remain_time"];
-    message.coin_remaining_num = referee_dict["coin_remaining_num"];
-    message.bullet_remaining_num_17mm = referee_dict["bullet_remaining_num_17mm"];
-    message.red_1_hp = referee_dict["red_1_hp"];
-    message.red_2_hp = referee_dict["red_2_hp"];
-    message.red_3_hp = referee_dict["red_3_hp"];
-    message.red_4_hp = referee_dict["red_4_hp"];
-    message.red_5_hp = referee_dict["red_5_hp"];
-    message.red_7_hp = referee_dict["red_7_hp"];
-    message.red_outpost_hp = referee_dict["red_outpost_hp"];
-    message.red_base_hp = referee_dict["red_base_hp"];
-    message.blue_1_hp = referee_dict["blue_1_hp"];
-    message.blue_2_hp = referee_dict["blue_2_hp"];
-    message.blue_3_hp = referee_dict["blue_3_hp"];
-    message.blue_4_hp = referee_dict["blue_4_hp"];
-    message.blue_5_hp = referee_dict["blue_5_hp"];
-    message.blue_7_hp = referee_dict["blue_7_hp"];
-    message.blue_outpost_hp = referee_dict["blue_outpost_hp"];
-    message.blue_base_hp = referee_dict["blue_base_hp"];
-    message.rfid_status = referee_dict["home_occupy"]<<19;
-    message.event_type = referee_dict["mid_occupy"]<<21;
-    message.enemy_hero_pos = referee_dict["enemy_hero_pos"];
 
-    // 发布消息
+    message.remain_hp = static_cast<uint16_t>(referee_dict["remain_hp"]);
+    message.max_hp = static_cast<uint16_t>(referee_dict["max_hp"]);
+    message.bullet_remaining_num_17mm = static_cast<uint16_t>(referee_dict["bullet_remaining_num_17mm"]);
+    message.bullet_cooling_speed = static_cast<uint16_t>(referee_dict["bullet_cooling_speed"]);
+    message.shooter_heat_limit = static_cast<uint16_t>(referee_dict["shooter_heat_limit"]);
+    message.shooter_heat_now = static_cast<uint16_t>(referee_dict["shooter_heat_now"]);
+
+    message.remain_energy = static_cast<uint8_t>(referee_dict["remain_energy"]);
+    message.health_state = static_cast<uint8_t>(referee_dict["health_state"]);
+    message.state_now = static_cast<uint8_t>(referee_dict["state_now"]);
+
+    message.stage_remain_time = static_cast<uint16_t>(referee_dict["stage_remain_time"]);
+    message.game_progress = static_cast<uint8_t>(referee_dict["game_progress"]);
+
+    message.ally_1_robot_hp = static_cast<uint16_t>(referee_dict["ally_1_robot_hp"]);
+    message.ally_2_robot_hp = static_cast<uint16_t>(referee_dict["ally_2_robot_hp"]);
+    message.ally_3_robot_hp = static_cast<uint16_t>(referee_dict["ally_3_robot_hp"]);
+    message.ally_4_robot_hp = static_cast<uint16_t>(referee_dict["ally_4_robot_hp"]);
+    message.ally_outpost_hp = static_cast<uint16_t>(referee_dict["ally_outpost_hp"]);
+    message.ally_base_hp = static_cast<uint16_t>(referee_dict["ally_base_hp"]);
+
+    message.rfid_status = static_cast<uint32_t>(referee_dict["rfid_status"]);
+    message.event_type = static_cast<uint32_t>(referee_dict["event_type"]);
+
+    message.pilot_cmd = static_cast<uint8_t>(referee_dict["pilot_cmd"]);
+    message.fortress_enemy = static_cast<uint8_t>(referee_dict["fortress_enemy"]);
+    message.bumpy_road = static_cast<uint8_t>(referee_dict["bumpy_road"]);
+    message.enemy_outpost_alive = static_cast<uint8_t>(referee_dict["enemy_outpost_alive"]);
+    message.enemy_hero_pos = static_cast<uint8_t>(referee_dict["enemy_hero_pos"]);
+    message.enemy_engineer_pos = static_cast<uint8_t>(referee_dict["enemy_engineer_pos"]);
+
     publisher_->publish(message);
 }
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto node = std::make_shared<referee_publisher>();
     rclcpp::spin(node);
     rclcpp::shutdown();
+
+    return 0;
 }
