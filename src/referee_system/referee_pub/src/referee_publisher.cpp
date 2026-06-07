@@ -5,6 +5,7 @@
 #include <memory>
 #include <string>
 #include <map>
+#include <vector>
 #include <cstring>
 
 #include <QSharedMemory>
@@ -19,39 +20,61 @@ std::map<std::string, int> referee_dict{
     {"bullet_cooling_speed", 0},
     {"shooter_heat_limit", 0},
     {"shooter_heat_now", 0},
-
     {"remain_energy", 0},
     {"health_state", 0},
     {"state_now", 0},
-
     {"stage_remain_time", 420},
     {"game_progress", 4},
-
-    {"ally_1_robot_hp", 500},
-    {"ally_2_robot_hp", 250},
-    {"ally_3_robot_hp", 400},
-    {"ally_4_robot_hp", 400},
     {"ally_outpost_hp", 1500},
     {"ally_base_hp", 5000},
-
     {"rfid_status", 0},
-    {"event_type", 0},
-
-    {"pilot_cmd", 0},
-    {"fortress_enemy", 0},
-    {"bumpy_road", 0},
+    {"event_data", 0},
+    {"defend_fortress", 0},
     {"enemy_outpost_alive", 1},
-    {"enemy_hero_pos", 0},
-    {"enemy_engineer_pos", 0}
+    {"catch_hero", 0},
+    {"catch_engineer", 0},
+    {"rush_home", 0},
+    {"bumpy_exist_enemy", 0},
+    {"enemy_base_flower", 0},
+    {"could_fire", 0},
+    {"head_status", 2}
+
+};
+
+std::vector<std::string> referee_keys{
+    "remain_hp",
+    "max_hp",
+    "bullet_remaining_num_17mm",
+    "bullet_cooling_speed",
+    "shooter_heat_limit",
+    "shooter_heat_now",
+    "remain_energy",
+    "health_state",
+    "state_now",
+    "stage_remain_time",
+    "game_progress",
+    "ally_outpost_hp",
+    "ally_base_hp",
+    "rfid_status",
+    "event_data",
+    "defend_fortress",
+    "enemy_outpost_alive",
+    "catch_hero",
+    "catch_engineer",
+    "rush_home",
+    "bumpy_exist_enemy",
+    "enemy_base_flower",
+    "could_fire",
+    "head_status"
 };
 
 referee_publisher::referee_publisher()
     : Node("referee_publisher"), count_(0)
 {
-    for (auto iter = referee_dict.begin(); iter != referee_dict.end(); ++iter)
+    for (const auto & key : referee_keys)
     {
-        this->declare_parameter<int>(iter->first, iter->second);
-        this->get_parameter(iter->first, referee_dict[iter->first]);
+        this->declare_parameter<int>(key, referee_dict[key]);
+        this->get_parameter(key, referee_dict[key]);
     }
 
     publisher_ = this->create_publisher<referee_msg::msg::Referee>("Referee", 10);
@@ -81,6 +104,7 @@ void referee_publisher::memory(std::string msg_name)
 
     if (!shared_memory.constData())
     {
+        shared_memory.detach();
         return;
     }
 
@@ -93,9 +117,9 @@ void referee_publisher::memory(std::string msg_name)
 
 void referee_publisher::timer_callback()
 {
-    for (auto iter = referee_dict.begin(); iter != referee_dict.end(); ++iter)
+    for (const auto & key : referee_keys)
     {
-        referee_publisher::memory(iter->first);
+        referee_publisher::memory(key);
     }
 
     auto message = referee_msg::msg::Referee();
@@ -114,22 +138,21 @@ void referee_publisher::timer_callback()
     message.stage_remain_time = static_cast<uint16_t>(referee_dict["stage_remain_time"]);
     message.game_progress = static_cast<uint8_t>(referee_dict["game_progress"]);
 
-    message.ally_1_robot_hp = static_cast<uint16_t>(referee_dict["ally_1_robot_hp"]);
-    message.ally_2_robot_hp = static_cast<uint16_t>(referee_dict["ally_2_robot_hp"]);
-    message.ally_3_robot_hp = static_cast<uint16_t>(referee_dict["ally_3_robot_hp"]);
-    message.ally_4_robot_hp = static_cast<uint16_t>(referee_dict["ally_4_robot_hp"]);
     message.ally_outpost_hp = static_cast<uint16_t>(referee_dict["ally_outpost_hp"]);
     message.ally_base_hp = static_cast<uint16_t>(referee_dict["ally_base_hp"]);
 
     message.rfid_status = static_cast<uint32_t>(referee_dict["rfid_status"]);
-    message.event_type = static_cast<uint32_t>(referee_dict["event_type"]);
+    message.event_data = static_cast<uint32_t>(referee_dict["event_data"]);
 
-    message.pilot_cmd = static_cast<uint8_t>(referee_dict["pilot_cmd"]);
-    message.fortress_enemy = static_cast<uint8_t>(referee_dict["fortress_enemy"]);
-    message.bumpy_road = static_cast<uint8_t>(referee_dict["bumpy_road"]);
+    message.defend_fortress = static_cast<uint8_t>(referee_dict["defend_fortress"]);
     message.enemy_outpost_alive = static_cast<uint8_t>(referee_dict["enemy_outpost_alive"]);
-    message.enemy_hero_pos = static_cast<uint8_t>(referee_dict["enemy_hero_pos"]);
-    message.enemy_engineer_pos = static_cast<uint8_t>(referee_dict["enemy_engineer_pos"]);
+    message.catch_hero = static_cast<uint8_t>(referee_dict["catch_hero"]);
+    message.catch_engineer = static_cast<uint8_t>(referee_dict["catch_engineer"]);
+    message.rush_home = static_cast<uint8_t>(referee_dict["rush_home"]);
+    message.bumpy_exist_enemy = static_cast<uint8_t>(referee_dict["bumpy_exist_enemy"]);
+    message.enemy_base_flower = static_cast<uint8_t>(referee_dict["enemy_base_flower"]);
+    message.could_fire = static_cast<uint8_t>(referee_dict["could_fire"]);
+    message.head_status = static_cast<uint8_t>(referee_dict["head_status"]);
 
     publisher_->publish(message);
 }
@@ -137,9 +160,10 @@ void referee_publisher::timer_callback()
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
+
     auto node = std::make_shared<referee_publisher>();
     rclcpp::spin(node);
-    rclcpp::shutdown();
 
+    rclcpp::shutdown();
     return 0;
 }
