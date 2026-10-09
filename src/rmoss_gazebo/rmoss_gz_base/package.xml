@@ -14,9 +14,9 @@
     <depend>ros_gz_bridge</depend>
     <depend>rmoss_gz_resources</depend>
     <depend>rmoss_gz_plugins</depend>
+    <depend>gz_msgs_vendor</depend>
+    <depend>gz_transport_vendor</depend>
     <!-- Gazebo Fortress  (default) -->
-    <depend>ignition-msgs8</depend>
-    <depend>ignition-transport11</depend>
 
     <test_depend>ament_lint_auto</test_depend>
     <test_depend>ament_lint_common</test_depend>

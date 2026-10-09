@@ -13,7 +13,7 @@ rmoss_gz_plugins: 提供Gazebo Plugins，为RoboMaster Gazebo仿真提供插件�
 MecanumDrive2:
 
 ```xml
-<plugin filename="MecanumDrive" name="ignition::gazebo::systems::MecanumDrive2">
+<plugin filename="MecanumDrive" name="gz::sim::systems::MecanumDrive2">
     <chassis_link>chassis</chassis_link>
     <front_left_joint>front_left_wheel_joint</front_left_joint>
     <front_right_joint>front_right_wheel_joint</front_right_joint>
@@ -25,7 +25,7 @@ MecanumDrive2:
 ProjectileShooter:
 
 ```xml
-<plugin filename="ProjectileShooter" name="ignition::gazebo::systems::ProjectileShooter">
+<plugin filename="ProjectileShooter" name="gz::sim::systems::ProjectileShooter">
     <shooter_name>small_shooter</shooter_name>
     <shooter_link>speed_monitor</shooter_link>
     <shooter_offset>0.15 0 0 0 0 0</shooter_offset>
@@ -38,7 +38,7 @@ ProjectileShooter:
 LightBarController:
 
 ```xml
-<plugin filename="LightBarController" name="ignition::gazebo::systems::LightBarController">
+<plugin filename="LightBarController" name="gz::sim::systems::LightBarController">
     <controller_name>color_controller</controller_name>
     <link_visual>armor_0/light_bar_visual</link_visual>
     <link_visual>armor_1/light_bar_visual</link_visual>

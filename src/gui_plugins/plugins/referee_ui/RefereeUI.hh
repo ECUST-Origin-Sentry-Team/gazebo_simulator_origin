@@ -23,7 +23,7 @@
 #include <QSharedMemory>
 #include <QTimer>
 
-namespace ignition
+namespace gz
 {
   namespace gui
   {

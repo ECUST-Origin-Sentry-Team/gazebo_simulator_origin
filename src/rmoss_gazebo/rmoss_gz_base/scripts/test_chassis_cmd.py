@@ -14,7 +14,7 @@ Moving around:
         w    
    a    s    d
 control mode: z for velocity, x for follow gimbal
-turn : '[' for left  ']' for right
+turn : 'q' for left  'e' for right
 stop : space key
 ---------------------------
 CTRL-C to quit
@@ -62,9 +62,9 @@ def main():
             vel_y=1.0 * v
         elif key == 'd':
             vel_y=-1.0 * v
-        elif key == '[':
+        elif key == 'q':
             vel_w=1.0 * w
-        elif key == ']':
+        elif key == 'e':
             vel_w=-1.0 * w
         elif key == ' ':
             vel_x=vel_y=vel_w=0.0

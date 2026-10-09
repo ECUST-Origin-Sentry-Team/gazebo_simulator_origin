@@ -13,6 +13,7 @@
 // limitations under the License.
 
 #include "rmoss_gz_bridge/pose_bridge_node.hpp"
+#include "gz/msgs/boolean.pb.h"
 
 #include <thread>
 #include <memory>
@@ -26,7 +27,7 @@ namespace rmoss_gz_bridge
 PoseBridgeNode::PoseBridgeNode(const rclcpp::NodeOptions & options)
 {
   node_ = std::make_shared<rclcpp::Node>("pose_bridge", options);
-  gz_node_ = std::make_shared<ignition::transport::Node>();
+  gz_node_ = std::make_shared<gz::transport::Node>();
   // parameters
   std::string world_name;
   node_->declare_parameter("world_name", "default");
@@ -44,7 +45,7 @@ PoseBridgeNode::PoseBridgeNode(const rclcpp::NodeOptions & options)
     "/referee_system/set_pose", 10, std::bind(&PoseBridgeNode::set_pose_cb, this, _1));
 }
 
-void PoseBridgeNode::gz_pose_cb(const ignition::msgs::Pose_V & msg)
+void PoseBridgeNode::gz_pose_cb(const gz::msgs::Pose_V & msg)
 {
   tf2_msgs::msg::TFMessage ros_msg;
   for (auto const & p : msg.pose()) {
@@ -64,10 +65,10 @@ void PoseBridgeNode::gz_pose_cb(const ignition::msgs::Pose_V & msg)
 void PoseBridgeNode::set_pose_cb(const geometry_msgs::msg::TransformStamped::SharedPtr msg)
 {
   // Request message
-  ignition::msgs::Pose req;
+  gz::msgs::Pose req;
   ros_gz_bridge::convert_ros_to_gz(msg->transform, req);
   req.set_name(msg->child_frame_id);
-  ignition::msgs::Boolean rep;
+  gz::msgs::Boolean rep;
   bool result;
   bool executed = gz_node_->Request(gz_service_name_, req, 500, rep, result);
   if (executed) {

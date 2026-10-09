@@ -25,7 +25,7 @@ def generate_launch_description():
     world_sdf_path = os.path.join(
         pkg_simulator, "resource", "worlds", f"{selected_world}_world.sdf"
     )
-    ign_config_path = os.path.join(pkg_simulator, "resource", "ign", "gui.config")
+    gz_config_path = os.path.join(pkg_simulator, "resource", "gz", "gui.config")
 
     gazebo_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -33,7 +33,7 @@ def generate_launch_description():
         ),
         launch_arguments={
             "world_sdf_path": world_sdf_path,
-            "ign_config_path": ign_config_path,
+            "gz_config_path": gz_config_path,
         }.items(),
     )
 

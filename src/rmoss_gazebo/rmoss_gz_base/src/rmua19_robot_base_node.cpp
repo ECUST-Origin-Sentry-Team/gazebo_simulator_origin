@@ -24,7 +24,7 @@ namespace rmoss_gz_base
 Rmua19RobotBaseNode::Rmua19RobotBaseNode(const rclcpp::NodeOptions & options)
 {
   node_ = std::make_shared<rclcpp::Node>("robot_base", options);
-  gz_node_ = std::make_shared<ignition::transport::Node>();
+  gz_node_ = std::make_shared<gz::transport::Node>();
   // parameters
   std::string world_name, robot_name;
   bool use_odometry = false;
@@ -37,7 +37,7 @@ Rmua19RobotBaseNode::Rmua19RobotBaseNode(const rclcpp::NodeOptions & options)
   is_red_ = (robot_name.find("blue") == std::string::npos);
 
 
-  // ign topic string
+  // gz topic string
   // std::string gz_chassis_cmd_topic = "/" + robot_name + "/cmd_vel";
   std::string gz_pitch_cmd_topic = "/model/" + robot_name + "/joint/gimbal_pitch_joint/cmd_vel";
   std::string gz_yaw_cmd_topic = "/model/" + robot_name + "/joint/gimbal_yaw_joint/cmd_vel";

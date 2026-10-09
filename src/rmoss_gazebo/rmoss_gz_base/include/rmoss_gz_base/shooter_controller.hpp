@@ -19,7 +19,7 @@
 #include <string>
 #include <mutex>
 
-#include "ignition/transport/Node.hh"
+#include "gz/transport/Node.hh"
 #include "rclcpp/rclcpp.hpp"
 #include "rmoss_interfaces/msg/shoot_cmd.hpp"
 #include "hardware_interface.hpp"

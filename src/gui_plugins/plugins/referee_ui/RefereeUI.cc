@@ -120,4 +120,4 @@ void RefereeUI::checkSharedMemory()
 }
 
 // Register plugin
-IGNITION_ADD_PLUGIN(RefereeUI, gz::gui::Plugin)
+GZ_ADD_PLUGIN(RefereeUI, gz::gui::Plugin)

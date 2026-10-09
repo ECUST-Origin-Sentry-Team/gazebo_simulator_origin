@@ -52,7 +52,7 @@ struct Region {
 };
 
 
-namespace ignition
+namespace gz
 {
   namespace gui
   {

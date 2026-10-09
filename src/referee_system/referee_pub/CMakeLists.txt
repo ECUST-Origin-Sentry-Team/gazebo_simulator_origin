@@ -23,9 +23,8 @@ find_package (Qt5
 
 
 # Find the Gazebo gui library
-find_package(ignition-gui6 REQUIRED)
-find_package(ignition-common4 REQUIRED)
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNITION-GUI_CXX_FLAGS}")
+find_package(gz-gui8 REQUIRED)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 
 
 add_executable(referee_pub src/referee_publisher.cpp)
@@ -37,21 +36,14 @@ ament_target_dependencies(referee_pub
 
 include_directories(include)
 include_directories(SYSTEM
-  ${IGNITION-COMMON_INCLUDE_DIRS}
-  ${IGNITION-GUI_INCLUDE_DIRS}
   ${Qt5Core_INCLUDE_DIRS}
   ${Qt5Qml_INCLUDE_DIRS}
   ${Qt5Quick_INCLUDE_DIRS}
   ${Qt5QuickControls2_INCLUDE_DIRS}
 )
 
-link_directories(
-  ${IGNITION-COMMON_LIBRARY_DIRS}
-  ${IGNITION-GUI_LIBRARY_DIRS}
-)
-
 target_link_libraries(referee_pub
-${IGNITION-GUI_LIBRARIES}
+gz-gui8::gz-gui8
 ${Qt5Core_LIBRARIES}
 ${Qt5Qml_LIBRARIES}
 ${Qt5Quick_LIBRARIES}

@@ -26,7 +26,8 @@
 	<depend>rmoss_gz_resources</depend>
 	<depend>pb2025_robot_description</depend>
 	<depend>sdformat_tools</depend>
-	<depend>vision_interfaces</depend>
+	<!-- player_web/main_vision.py uses the project-specific external vision_interfaces
+	     package, but that script is not installed by this simulator package. -->
 
 	<test_depend>ament_cmake_gtest</test_depend>
 	<test_depend>ament_lint_auto</test_depend>

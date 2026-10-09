@@ -72,7 +72,7 @@
         <xmacro_block name="chassis_wheel_l"  prefix="rear_right" parent="chassis" pose="-0.207 -0.194 0 0 0 0"/>
         <!--gimbal yaw module-->
         <joint name="gimbal_yaw_joint" type="revolute">
-            <pose relative_to="base_link">0 0 -0.6 0 0 0</pose>
+            <pose relative_to="base_link">0 0 -0.5 0 0 0</pose>
             <parent>base_link</parent>
             <child>chassis</child>
             <axis>
@@ -102,7 +102,7 @@
         </link>
         <!--gimbal pitch module-->
         <joint name="gimbal_pitch_joint" type="revolute">
-            <pose relative_to='base_link'>0 0.004 -0.266 0 0 0</pose>
+            <pose relative_to='base_link'>0 0.004 -0.366 0 0 0</pose>
             <parent>base_link</parent>
             <child>gimbal_pitch</child>
             <axis>

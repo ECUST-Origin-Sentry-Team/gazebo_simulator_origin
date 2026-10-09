@@ -103,7 +103,7 @@ def generate_launch_description():
             ],
         )
 
-        robot_ign_bridge = Node(
+        robot_gz_bridge = Node(
             package="ros_gz_bridge",
             executable="parameter_bridge",
             namespace=robot["name"],
@@ -114,14 +114,14 @@ def generate_launch_description():
         # https://gazebosim.org/api/gazebo/6.9/levels.html#Runtime-performers
         set_performer_service = ExecuteProcess(
             cmd=[
-                "ign",
+                "gz",
                 "service",
                 "-s",
                 "/world/default/level/set_performer",
                 "--reqtype",
-                "ignition.msgs.StringMsg",
+                "gz.msgs.StringMsg",
                 "--reptype",
-                "ignition.msgs.Boolean",
+                "gz.msgs.Boolean",
                 "--timeout",
                 "2000",
                 "--req",
@@ -133,7 +133,7 @@ def generate_launch_description():
         ld.add_action(spawn_robot)
         ld.add_action(robot_base)
         ld.add_action(robot_state_publisher)
-        ld.add_action(robot_ign_bridge)
+        ld.add_action(robot_gz_bridge)
         ld.add_action(set_performer_service)
 
     return ld

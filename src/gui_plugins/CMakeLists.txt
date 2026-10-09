@@ -9,81 +9,57 @@ if(POLICY CMP0100)
   cmake_policy(SET CMP0100 NEW)
 endif()
 
-set (CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOMOC ON)
 
-# Find Qt5
-find_package (Qt5
-  COMPONENTS
-    Core
-    Quick
-    QuickControls2
-  REQUIRED
-)
-
+find_package(Qt5 REQUIRED COMPONENTS Core Quick QuickControls2)
 find_package(ament_cmake REQUIRED)
 
-# Find the Gazebo gui library
-find_package(ignition-gui6 REQUIRED)
-find_package(ignition-common4 REQUIRED)
-find_package(gz-transport12 REQUIRED)
+# Gazebo Harmonic / gz-gui8, following the upstream gz-gui8 plugin example.
+find_package(gz-gui8 REQUIRED)
+set(GZ_GUI_VER ${gz-gui8_VERSION_MAJOR})
+find_package(gz-transport13 REQUIRED)
+set(GZ_TRANSPORT_VER ${gz-transport13_VERSION_MAJOR})
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GZ-GUI_CXX_FLAGS}")
+
 find_package(yaml-cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED) 
+find_package(tf2_geometry_msgs REQUIRED)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${IGNITION-GUI_CXX_FLAGS}")
-
-QT5_ADD_RESOURCES(resources_RCC plugins/referee_ui/referee.qrc)
-QT5_ADD_RESOURCES(resources_RCC plugins/race_control/racecontrol.qrc)
-
-include_directories(SYSTEM
-  ${IGNITION-COMMON_INCLUDE_DIRS}
-  ${IGNITION-GUI_INCLUDE_DIRS}
-  ${Qt5Core_INCLUDE_DIRS}
-  ${Qt5Qml_INCLUDE_DIRS}
-  ${Qt5Quick_INCLUDE_DIRS}
-  ${Qt5QuickControls2_INCLUDE_DIRS}
-  ${YAML_CPP_INCLUDE_DIRS}
-)
-
-link_directories(
-  ${IGNITION-COMMON_LIBRARY_DIRS}
-  ${IGNITION-GUI_LIBRARY_DIRS}
+QT5_ADD_RESOURCES(resources_RCC
+  plugins/referee_ui/referee.qrc
+  plugins/race_control/racecontrol.qrc
 )
 
 add_library(RefereeUI SHARED
   plugins/referee_ui/RefereeUI.cc
   ${resources_RCC}
 )
-
 target_link_libraries(RefereeUI
-  ${IGNITION-GUI_LIBRARIES}
+  gz-gui${GZ_GUI_VER}::gz-gui${GZ_GUI_VER}
+  gz-transport${GZ_TRANSPORT_VER}::gz-transport${GZ_TRANSPORT_VER}
   ${Qt5Core_LIBRARIES}
   ${Qt5Qml_LIBRARIES}
   ${Qt5Quick_LIBRARIES}
   ${Qt5QuickControls2_LIBRARIES}
-  gz-transport12::gz-transport12
 )
-
-install(TARGETS RefereeUI
-    DESTINATION plugins
-)
+install(TARGETS RefereeUI DESTINATION plugins)
 
 add_library(RaceControl SHARED
   plugins/race_control/RaceControl.cc
   ${resources_RCC}
 )
-
 target_link_libraries(RaceControl
-  ${IGNITION-GUI_LIBRARIES}
+  gz-gui${GZ_GUI_VER}::gz-gui${GZ_GUI_VER}
+  gz-transport${GZ_TRANSPORT_VER}::gz-transport${GZ_TRANSPORT_VER}
   ${Qt5Core_LIBRARIES}
   ${Qt5Qml_LIBRARIES}
   ${Qt5Quick_LIBRARIES}
   ${Qt5QuickControls2_LIBRARIES}
-  gz-transport12::gz-transport12
-  yaml-cpp 
+  yaml-cpp
 )
 
 ament_target_dependencies(RaceControl
@@ -93,12 +69,7 @@ ament_target_dependencies(RaceControl
   tf2_ros
   tf2_geometry_msgs
 )
+install(TARGETS RaceControl DESTINATION plugins)
 
-install(TARGETS RaceControl
-    DESTINATION plugins
-)
-
-#environment
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/gazebo.dsv.in")
-
 ament_package()

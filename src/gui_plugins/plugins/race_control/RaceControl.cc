@@ -355,4 +355,4 @@ void RaceControl::onTimerTimeout()
 }
 
 // Register plugin
-IGNITION_ADD_PLUGIN(RaceControl, gz::gui::Plugin);
+GZ_ADD_PLUGIN(RaceControl, gz::gui::Plugin);
