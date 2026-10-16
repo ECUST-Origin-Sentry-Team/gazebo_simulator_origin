@@ -36,12 +36,11 @@ RoboMaster University AI Challenge 2019 标准步兵机器人
  * 支持云台（pitch,yaw）角度控制，使用Ignition官方插件`JointPositionController`.
  * 具有装甲板灯条发光效果，需使用插件，可测试自瞄等识别算法。
 
-在标准机器人上可以加上自己的相机等传感器构建自己的机器人模型，例如
+在标准机器人上可以加上自己的激光雷达等传感器构建自己的机器人模型，例如
 
 ```xml
 <sdf version="1.7">   
 	<xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
-    <xmacro_include uri="model://industrial_camera/model.sdf.xmacro" />
     <xmacro_include uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xmacro" />
 	<xmacro_define_value name="global_armor_sticker_num1" value="model://rm21_armor_module/materials/textures/armor_sticker_num1.png" />
     <!--rmua19_standard_robot B model-->
@@ -51,9 +50,6 @@ RoboMaster University AI Challenge 2019 标准步兵机器人
         <!--rplidar a2-->
         <xmacro_block name="rplidar_a2" prefix="front_" parent="chassis" pose="0.155 0 0.1 0 0 0"
                 update_rate="10" samples="400" visualize="true"/>
-        <!--industrial camera-->
-        <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0"
-                            update_rate="30" horizontal_fov="1" width="640" height="480"/>
     </model>
 </sdf>
 ```

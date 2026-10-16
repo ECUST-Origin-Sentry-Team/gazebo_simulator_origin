@@ -4,7 +4,6 @@
     <!--include defination-->
     <xmacro_include uri="model://rplidar_a2/model.sdf.xmacro" />
     <xmacro_include uri="model://mid360/model.sdf.xmacro" />
-    <xmacro_include uri="model://industrial_camera/model.sdf.xmacro" />
     <xmacro_include uri="model://rmua19_standard_robot/rmua19_standard_robot.def.xmacro" />
     <!--property defination-->
     <xmacro_define_value name="global_initial_color" value="none" />
@@ -19,8 +18,6 @@
         <!-- <xmacro_block name="rplidar_a2" prefix="front_" parent="base_link" pose="0.155 0 0.1 0 0 0" update_rate="10" samples="400" visualize="true"/> -->
         <!--livox-->
         <xmacro_block name="livox_frame" prefix="" parent="aft_mapped" pose="-0.2 0 -0.33 0.0 0.0 0.0" update_rate="100" samples="875"/>
-        <!--industrial camera-->
-        <xmacro_block name="industrial_camera" prefix="front_" parent="gimbal_pitch" pose="0.1 0 0.045 0 0 0" update_rate="30" horizontal_fov="1" width="1920" height="1080"/>
 
         <!--plugins-->
         <!-- https://github.com/gazebosim/gz-sim/blob/ign-gazebo6/src/systems -->

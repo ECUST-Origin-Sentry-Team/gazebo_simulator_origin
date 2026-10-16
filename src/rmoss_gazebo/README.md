@@ -21,7 +21,6 @@ rmoss_gazebo是RoboMaster OSS中的基础项目，为RoboMaster提供Gazebo仿�
 | :-------------------------: | :----------------------------------------------------------: |
 |     `rmoss_gz_plugins`     |        RoboMaster相关Gazebo Simulator插件。                  |
 |      `rmoss_gz_base`       | Gazebo机器人基本接口(对应`rmoss_base`), 模拟MCU部分功能       |
-|      `rmoss_gz_cam`        | Gazebo相机接口(对应`rmoss_cam`)                              |
 |    `rmoss_gz_resources`    | RoboMaster相关核心SDF模型资源，官方机器人模型和核心场地模型。 |
 
 * `rmoss_gz_resources` 主要包含资源文件，体积较大，单独成库。

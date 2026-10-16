@@ -16,11 +16,11 @@ SMBU PolarBear Team robot description package for RoboMaster 2025.
 
 本项目使用 [xmacro](https://github.com/gezp/xmacro) 格式描述机器人关节信息，可以更灵活的组合已有模型。
 
-当前机器人描述文件基于 [rmua19_standard_robot](https://github.com/robomaster-oss/rmoss_gz_resources/tree/humble/resource/models/rmua19_standard_robot) 进行二次编辑，加入了工业相机和激光雷达等传感器。
+当前机器人描述文件基于 [rmua19_standard_robot](https://github.com/robomaster-oss/rmoss_gz_resources/tree/humble/resource/models/rmua19_standard_robot) 进行二次编辑，当前配置搭载 Mid360 激光雷达与 IMU。
 
 - [pb2025_sentry_robot](./resource/xmacro/pb2025_sentry_robot.sdf.xmacro)
 
-    搭载云台相机 industrial_camera 和激光雷达 rplidar_a2 和 Livox mid360，其中相机与 gimbal_pitch 轴固连，mid360 倾斜侧放与 chassis 固连。
+    当前仿真搭载 Livox Mid360（固定在 aft_mapped 上），包含激光雷达和 IMU。RPLIDAR A2 挂载已注释，工业相机模型和驱动已移除。
 
     ![sentry](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/sentry_description.1sf3yc69kr.webp)
 
